@@ -13,7 +13,7 @@ public class BigMenu extends JFrame implements ActionListener {
 	JMenuBar mbar;
 	JMenu mnu, mnu2;
 	JMenuItem insert, update, delete, navigate, viewlist, search;
-	String options[] = { "General Employee", "Ticket", "Service Agent", "Assignment Group", "Ticket Date" };
+	String options[] = { "General Employee", "Ticket", "Service Agent", "Assignment Group" };
 	public BigMenu() {
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mbar = new JMenuBar();
@@ -61,8 +61,8 @@ public class BigMenu extends JFrame implements ActionListener {
 			obj.setVisible(true);
 		}
 		if (str.equals("Delete")) {
-			JOptionPane.showMessageDialog(this, "You Clicked Delete Button");
-			Delete obj = new Delete();
+			//JOptionPane.showMessageDialog(this, "You Clicked Delete Button");
+			Delet obj = new Delet();
 			obj.setSize(300, 300);
 			obj.setVisible(true);
 		}
