@@ -1,13 +1,21 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 
 public class BigMenu extends JFrame implements ActionListener {
+	public static BigMenu obj;
 	JMenuBar mbar;
 	JMenu mnu, mnu2;
 	JMenuItem insert, update, delete, navigate, viewlist, search;
 	String options[] = { "General Employee", "Ticket", "Service Agent", "Assignment Group", "Ticket Date" };
 	public BigMenu() {
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mbar = new JMenuBar();
 		setJMenuBar(mbar);
 		mnu = new JMenu("Record Ops");
@@ -49,7 +57,7 @@ public class BigMenu extends JFrame implements ActionListener {
 			int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "ayylmao",
 					JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
 			Update1 obj = new Update1(chosen);
-			obj.setSize(300, 300);
+			//obj.setSize(300, 300);
 			obj.setVisible(true);
 		}
 		if (str.equals("Delete")) {
@@ -78,9 +86,12 @@ public class BigMenu extends JFrame implements ActionListener {
 		}
 	}
 
+	
+	
 	public static void main(String[] args) {
-		BigMenu obj = new BigMenu();
+		obj = new BigMenu();
 		obj.setSize(300, 300);
+		obj.setLocationRelativeTo(null);
 		obj.setVisible(true);
 	}
 }
