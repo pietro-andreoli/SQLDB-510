@@ -6,7 +6,7 @@ public class BigMenu extends JFrame implements ActionListener {
 	JMenuBar mbar;
 	JMenu mnu, mnu2;
 	JMenuItem insert, update, delete, navigate, viewlist, search;
-
+	String options[] = { "General Employee", "Ticket", "Service Agent", "Assignment Group", "Ticket Date" };
 	public BigMenu() {
 		mbar = new JMenuBar();
 		setJMenuBar(mbar);
@@ -45,10 +45,10 @@ public class BigMenu extends JFrame implements ActionListener {
 		}
 		if (str.equals("Update")) {
 			// JOptionPane.showMessageDialog(this,"You Clicked Update Button");
-			String options[] = { "General Employee", "Ticket", "Service Agent", "Assignment Group", "Ticket Date" };
-			JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "ayylmao",
+			
+			int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "ayylmao",
 					JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-			Update1 obj = new Update1();
+			Update1 obj = new Update1(chosen);
 			obj.setSize(300, 300);
 			obj.setVisible(true);
 		}

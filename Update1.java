@@ -5,8 +5,12 @@ import java.sql.*;
 
 public class Update1 extends JFrame implements ActionListener {
 	JPanel panel;
-	JLabel l1, l2, l3;
-	JTextField t1, t2, t3;
+	//general employee labels and text fields
+	JLabel employee_name_l, employee_num_l;
+	JTextField employee_name_t, employee_num_t;
+	//ticket labels and text fields
+	JLabel ticket_num_l, date_opened_l, date_closed_l, assignment_group_l, status_l, priority_l, opened_for_l;
+	JTextField ticket_num_t, date_opened_t, date_closed_t, assignment_group_t, status_t, priority_t, opened_for_t;
 	String s;
 
 	ResultSet rs;
@@ -18,59 +22,80 @@ public class Update1 extends JFrame implements ActionListener {
 
 	JButton b1;
 
-	public Update1() {
+	public Update1(int options) {
 		gbc = new GridBagConstraints();
 		g1 = new GridBagLayout();
 		panel = (JPanel) getContentPane();
 		panel.setLayout(g1);
+		//If General Employee
+		if(options == 0){
+			employee_name_l = new JLabel("Employ No");
+			employee_num_l = new JLabel("Employee Name");
+			employee_name_t = new JTextField(30);
+			employee_num_t = new JTextField(9);
+			
+			gbc.anchor = GridBagConstraints.NORTHWEST;
+			gbc.gridx = 4;
+			gbc.gridy = 5;
+			g1.setConstraints(employee_name_t, gbc);
+			panel.add(employee_name_t);
+			
+			gbc.anchor = GridBagConstraints.NORTHWEST;
+			gbc.gridx = 1;
+			gbc.gridy = 5;
+			g1.setConstraints(employee_name_l, gbc);
+			panel.add(employee_name_l);
+			
+			gbc.anchor = GridBagConstraints.NORTHWEST;
+			gbc.gridx = 1;
+			gbc.gridy = 8;
+			g1.setConstraints(employee_num_l, gbc);
+			panel.add(employee_num_l);
+			
+			gbc.anchor = GridBagConstraints.NORTHWEST;
+			gbc.gridx = 4;
+			gbc.gridy = 8;
+			g1.setConstraints(employee_num_t, gbc);
+			panel.add(employee_num_t);
+		//If ticket
+		}else if(options == 1){
+			ticket_num_l = new JLabel("Ticket No");
+			date_opened_l = new JLabel("Date Opened");
+			date_closed_l = new JLabel("Date Closed");
+			assignment_group_l = new JLabel("Assignment Group");
+			status_l = new JLabel("Status");
+			priority_l = new JLabel("Priority");
+			opened_for_l = new JLabel("Opened For");
+			
+			ticket_num_t = new JTextField(10);
+			date_opened_t = new JTextField(10);
+			date_closed_t = new JTextField(10);
+			assignment_group_t = new JTextField(10);
+			status_t = new JTextField(10);
+			priority_t = new JTextField(10);
+			opened_for_t = new JTextField(10);
+			
+			gbc.anchor = GridBagConstraints.NORTHWEST;
+			gbc.gridx = 1;
+			gbc.gridy = 11;
+			g1.setConstraints(ticket_num_l, gbc);
+			panel.add(ticket_num_l);
+			
+			gbc.anchor = GridBagConstraints.NORTHWEST;
+			gbc.gridx = 4;
+			gbc.gridy = 11;
+			g1.setConstraints(ticket_num_t, gbc);
+			panel.add(ticket_num_t);
+		}
+		
+		
 
-		l1 = new JLabel("Employ No");
-		l2 = new JLabel("Designation ");
-		l3 = new JLabel("Basic");
-
-		t1 = new JTextField(10);
-		t2 = new JTextField(10);
-		t3 = new JTextField(10);
+		
+		
 
 		b1 = new JButton("Update");
-		b1.setMnemonic('U');
+		b1.setMnemonic(KeyEvent.VK_ENTER);
 		b1.addActionListener(this);
-
-		gbc.anchor = GridBagConstraints.NORTHWEST;
-		gbc.gridx = 1;
-		gbc.gridy = 5;
-		g1.setConstraints(l1, gbc);
-		panel.add(l1);
-
-		gbc.anchor = GridBagConstraints.NORTHWEST;
-		gbc.gridx = 4;
-		gbc.gridy = 5;
-		g1.setConstraints(t1, gbc);
-		panel.add(t1);
-
-		gbc.anchor = GridBagConstraints.NORTHWEST;
-		gbc.gridx = 1;
-		gbc.gridy = 8;
-		g1.setConstraints(l2, gbc);
-		panel.add(l2);
-
-		gbc.anchor = GridBagConstraints.NORTHWEST;
-		gbc.gridx = 4;
-		gbc.gridy = 8;
-		g1.setConstraints(t2, gbc);
-		panel.add(t2);
-
-		gbc.anchor = GridBagConstraints.NORTHWEST;
-		gbc.gridx = 1;
-		gbc.gridy = 11;
-		g1.setConstraints(l3, gbc);
-		panel.add(l3);
-
-		gbc.anchor = GridBagConstraints.NORTHWEST;
-		gbc.gridx = 4;
-		gbc.gridy = 11;
-		g1.setConstraints(t3, gbc);
-		panel.add(t3);
 
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		gbc.gridx = 4;
@@ -92,9 +117,9 @@ public class Update1 extends JFrame implements ActionListener {
 			try {
 				String updcmd = "update javasql set desig=?,basic=? where empno=?";
 				ps = con.prepareStatement(updcmd);
-				ps.setString(1, t2.getText());
-				ps.setInt(2, Integer.parseInt(t3.getText()));
-				ps.setInt(3, Integer.parseInt(t1.getText()));
+				ps.setString(1, employee_num_t.getText());
+				ps.setInt(2, Integer.parseInt(ticket_num_t.getText()));
+				ps.setInt(3, Integer.parseInt(employee_name_t.getText()));
 				ps.executeUpdate();
 				JOptionPane.showMessageDialog(this, "Record Updated...");
 			} catch (Exception exs) {
@@ -104,8 +129,8 @@ public class Update1 extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		Update1 obj = new Update1();
-		obj.setSize(300, 300);
-		obj.setVisible(true);
+		//Update1 obj = new Update1(0);
+	//	obj.setSize(300, 300);
+		//obj.setVisible(true);
 	}
 }
