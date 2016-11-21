@@ -105,6 +105,9 @@ public class Search1 extends JFrame implements ActionListener {
 		g1.setConstraints(b1, gbc);
 		panel.add(b1);
 
+		this.pack();
+       		this.setLocationRelativeTo(null);
+		
 		b1.addActionListener(this);
 		try {
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
