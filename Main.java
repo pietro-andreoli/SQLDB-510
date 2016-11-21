@@ -153,7 +153,7 @@ public class Main extends JFrame implements ActionListener
 		if (str.equals("Search"))
 		{
 			JOptionPane.showMessageDialog(this, "You Clicked Search Button");
-			Search obj = new Search();
+			search obj = new search();
 			obj.setSize(300, 300);
 			obj.setVisible(true);
 
