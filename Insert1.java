@@ -104,7 +104,10 @@ public class Insert1 extends JFrame implements ActionListener {
 		gbc.gridy = 23;
 		g1.setConstraints(b1, gbc);
 		panel.add(b1);
-
+		
+		this.pack();
+       		this.setLocationRelativeTo(null);
+		
 		try {
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 			con = DriverManager.getConnection("jdbc:odbc:java");
