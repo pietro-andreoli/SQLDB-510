@@ -53,8 +53,10 @@ public class Main extends JFrame implements ActionListener
 		String str = evt.getActionCommand();
 		if (str.equals("Insert"))
 		{
-			JOptionPane.showMessageDialog(this, "You Clicked Insert Button");
-			Insert obj = new Insert();
+			int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Update Table",
+					JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+			
+			Insert obj = new Insert(chosen);
 			obj.setSize(300, 300);
 			obj.setVisible(true);
 
@@ -87,7 +89,7 @@ public class Main extends JFrame implements ActionListener
 		{
 			// JOptionPane.showMessageDialog(this,"You Clicked Update Button");
 
-			int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "ayylmao",
+			int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Update Table",
 			JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
 			Update obj = new Update(chosen);
 			//obj.setSize(300, 300);
