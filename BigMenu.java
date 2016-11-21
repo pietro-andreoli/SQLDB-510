@@ -62,7 +62,7 @@ public class BigMenu extends JFrame implements ActionListener {
 		}
 		if (str.equals("Delete")) {
 			JOptionPane.showMessageDialog(this, "You Clicked Delete Button");
-			Delet obj = new Delet();
+			Delete obj = new Delete();
 			obj.setSize(300, 300);
 			obj.setVisible(true);
 		}
