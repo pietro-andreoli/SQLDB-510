@@ -5,8 +5,8 @@ import javax.swing.*;
 
 public class Insert extends JFrame implements ActionListener {
 	JPanel panel;
-	JLabel l1, l2, l3, l4, l5;
-	JTextField t1, t2, t3, t4, t5;
+	JLabel l1, l2, l3;
+	JTextField t1, t2, t3;
 	// String s;
 
 	ResultSet rs;
@@ -26,15 +26,15 @@ public class Insert extends JFrame implements ActionListener {
 
 		l1 = new JLabel("Employ No");
 		l2 = new JLabel("Name ");
-		l3 = new JLabel("Department");
-		l4 = new JLabel("Designation");
-		l5 = new JLabel("Basic ");
+		l3 = new JLabel("Assignment Group");
+		//l4 = new JLabel("Designation");
+		//l5 = new JLabel("Basic ");
 
 		t1 = new JTextField(10);
 		t2 = new JTextField(10);
 		t3 = new JTextField(10);
-		t4 = new JTextField(10);
-		t5 = new JTextField(10);
+		//t4 = new JTextField(10);
+		//t5 = new JTextField(10);
 
 		b1 = new JButton("Insert");
 		b1.addActionListener(this);
@@ -74,7 +74,7 @@ public class Insert extends JFrame implements ActionListener {
 		gbc.gridy = 11;
 		g1.setConstraints(t3, gbc);
 		panel.add(t3);
-
+/*
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		gbc.gridx = 1;
 		gbc.gridy = 14;
@@ -97,7 +97,7 @@ public class Insert extends JFrame implements ActionListener {
 		gbc.gridx = 4;
 		gbc.gridy = 18;
 		g1.setConstraints(t5, gbc);
-		panel.add(t5);
+		panel.add(t5);*/
 
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		gbc.gridx = 4;
@@ -123,13 +123,13 @@ public class Insert extends JFrame implements ActionListener {
 			try {
 				String inscmd = "insert into javasql values(?,?,?,?,?)";
 				int eno = Integer.parseInt(t1.getText());
-				int bas = Integer.parseInt(t5.getText());
+				//int bas = Integer.parseInt(t5.getText());
 				ps = con.prepareStatement(inscmd);
 				ps.setInt(1, eno);
 				ps.setString(2, t2.getText());
 				ps.setString(3, t3.getText());
-				ps.setString(4, t4.getText());
-				ps.setInt(5, bas);
+				//ps.setString(4, t4.getText());
+				//ps.setInt(5, bas);
 				ps.executeUpdate();
 				JOptionPane.showMessageDialog(this, "Record Inserted...");
 			} catch (Exception ex) {
