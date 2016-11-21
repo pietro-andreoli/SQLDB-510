@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.sql.*;
 
-public class Delet extends JFrame implements ActionListener {
+public class Delete extends JFrame implements ActionListener {
 	JPanel panel;
 	JLabel l1;
 	JTextField t1;
@@ -18,7 +18,7 @@ public class Delet extends JFrame implements ActionListener {
 
 	JButton b1;
 
-	public Delet() {
+	public Delete() {
 		gbc = new GridBagConstraints();
 		g1 = new GridBagLayout();
 		panel = (JPanel) getContentPane();
