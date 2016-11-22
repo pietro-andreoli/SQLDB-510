@@ -259,14 +259,14 @@ public class search extends JFrame implements ActionListener {
 		
 		if (s.equals("Search")) {
 			try {
-				rs.first();
-					if(this.option == 0){
-
-					}else if(this.option == 1){
-					}else if(this.option == 2){
-					}else if(this.option == 3){
-					}
-					
+				//rs.first();
+				if(this.option == 0){
+				}else if(this.option == 1){
+				}else if(this.option == 2){
+				}else if(this.option == 3){
+				}
+				Table display_table = new Table("hello world");
+				display_table.setVisible(true);
 			} catch (Exception eee) {
 				JOptionPane.showMessageDialog(this, eee);
 			}
