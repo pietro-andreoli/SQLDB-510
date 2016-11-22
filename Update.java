@@ -249,47 +249,23 @@ public class Update extends JFrame implements ActionListener {
 
 		//JACOB THIS IS WHERE YOU SHOULD TRY TO CONNECT TO THE SERVER I THINK
 
-		try {
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			con = DriverManager.getConnection("jdbc:odbc:java");
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this, ex);
-		}
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent evt) {
 		String str = evt.getActionCommand();
 		//JACOB THIS IS WHERE YOU GET THE INFO FOR THE SQL QUERY
 		if (str.equals("Update")) {
 			try {
-				String updcmd = "update javasql set desig=?,basic=? where empno=?";
-				ps = con.prepareStatement(updcmd);
+				
 				if(this.option == 0){
-					ps.setString(1, employee_name_t.getText());
-					ps.setInt(2, Integer.parseInt(employee_num_t.getText()));
 
 				}else if(this.option == 1){
-					ps.setInt(1, Integer.parseInt(ticket_num_t.getText()));
-					ps.setString(2, date_opened_t.getText());
-					ps.setString(3, date_closed_t.getText());
-					ps.setString(4, assignment_group_t.getText());
-					ps.setString(5, status_t.getText());
-					ps.setInt(6, Integer.parseInt(priority_t.getText()));
-					ps.setString(7, opened_for_t.getText());
 				}else if(this.option == 2){
-					ps.setString(1, employee_name_t.getText());
-					ps.setInt(2, Integer.parseInt(employee_num_t.getText()));
-					ps.setString(3, assignment_group_t.getText());
 				}else if(this.option == 3){
-					ps.setString(1,  assignment_group_t.getText());
 				}
 
-
-
-				ps.executeUpdate();
-				JOptionPane.showMessageDialog(this, "Record Updated...");
 			} catch (Exception exs) {
-				JOptionPane.showMessageDialog(this, exs);
 			}
 		}
 	}

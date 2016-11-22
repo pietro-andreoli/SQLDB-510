@@ -244,16 +244,10 @@ public class search extends JFrame implements ActionListener {
 		panel.add(b1);
 
 		b1.addActionListener(this);
-		try {
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			con = DriverManager.getConnection("jdbc:odbc:java", "sa", "prasanna");
-			st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			rs = st.executeQuery("select * from emp");
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this, ex);
-		}
+		
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent evt) {
 		String s = evt.getActionCommand();
 		
@@ -265,18 +259,14 @@ public class search extends JFrame implements ActionListener {
 				}else if(this.option == 2){
 				}else if(this.option == 3){
 				}
-				Table display_table = new Table("hello world");
+				Table display_table = new Table("SQL Data Here");
 				display_table.setVisible(true);
 			} catch (Exception eee) {
-				JOptionPane.showMessageDialog(this, eee);
 			}
 
 		}
 	}
 
 	public static void main(String[] args) {
-	//	search obj = new search();
-		//obj.setSize(300, 300);
-		//obj.setVisible(true);
 	}
 }

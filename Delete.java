@@ -69,40 +69,20 @@ public class Delete extends JFrame implements ActionListener {
 		
 		
 
-	
-
-		/*gbc.anchor = GridBagConstraints.NORTHWEST;
-		gbc.gridx = 4;
-		gbc.gridy = 5;
-		g1.setConstraints(t1, gbc);
-		panel.add(t1);*/
-
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		gbc.gridx = 4;
 		gbc.gridy = 23;
 		g1.setConstraints(b1, gbc);
 		panel.add(b1);
 		this.setLocationRelativeTo(null);
-		try {
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			con = DriverManager.getConnection("jdbc:odbc:java");
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this, ex);
-		}
+	
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent evt) {
 		String str = evt.getActionCommand();
 		if (str.equals("Delete")) {
-			try {
-				
-				//JACOB TO GET INFO FROM CHECK BOXES USE 
-				//general_employee_c.isSelected()
-				ps.executeUpdate();
-				JOptionPane.showMessageDialog(this, "Record Deleted");
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(this, ex);
-			}
+			
 		}
 	}
 }

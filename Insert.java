@@ -245,45 +245,19 @@ public class Insert extends JFrame implements ActionListener {
 		this.pack();
        		this.setLocationRelativeTo(null);
 
-		try {
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			con = DriverManager.getConnection("jdbc:odbc:java");
-
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this, ex);
-		}
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent evt) {
 		String s = evt.getActionCommand();
 		if (s.equals("Insert")) {
 			try {
-				String inscmd = "insert into javasql values(?,?,?,?,?)";
 				if(this.option == 0){
-					ps.setString(1, employee_name_t.getText());
-					ps.setInt(2, Integer.parseInt(employee_num_t.getText()));
-
 				}else if(this.option == 1){
-					ps.setInt(1, Integer.parseInt(ticket_num_t.getText()));
-					ps.setString(2, date_opened_t.getText());
-					ps.setString(3, date_closed_t.getText());
-					ps.setString(4, assignment_group_t.getText());
-					ps.setString(5, status_t.getText());
-					ps.setInt(6, Integer.parseInt(priority_t.getText()));
-					ps.setString(7, opened_for_t.getText());
 				}else if(this.option == 2){
-					ps.setString(1, employee_name_t.getText());
-					ps.setInt(2, Integer.parseInt(employee_num_t.getText()));
-					ps.setString(3, assignment_group_t.getText());
 				}else if(this.option == 3){
-					ps.setString(1,  assignment_group_t.getText());
 				}
-
-				ps.executeUpdate();
-				JOptionPane.showMessageDialog(this, "Record Inserted...");
 			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(this, "Inset Butt");
-				JOptionPane.showMessageDialog(this, ex);
 			}
 		}
 	}
