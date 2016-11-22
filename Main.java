@@ -1,260 +1,277 @@
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 import java.sql.*;
 
 public class Main extends JFrame implements ActionListener
 {
-	public static Main obj;
-	JMenuBar mbar;
-	JMenu mnu, mnu2;
-	JMenuItem insert, update, delete, navigate, viewlist, search;
-	String options[] = { "General Employee", "Ticket", "Service Agent", "Assignment Group" };
+    public static Main obj;
+    //JMenuBar mbar;
+    JMenu mnu, mnu2;
+    JButton insert, update, delete, navigate, viewlist, search;
+    String options[] = { "General Employee", "Ticket", "Service Agent", "Assignment Group" };
 
-	public Main()
-	{
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		mbar = new JMenuBar();
-		setJMenuBar(mbar);
-		mnu = new JMenu("Record Ops");
-		mnu2 = new JMenu("Transactions");
-		insert = new JMenuItem("Insert");
-		update = new JMenuItem("Update");
-		delete = new JMenuItem("Delete");
-		viewlist = new JMenuItem("ViewList");
-		navigate = new JMenuItem("Navigate");
-		search = new JMenuItem("Search");
+    public Main()
+    {
+        setLayout(new FlowLayout());
+        insert = new JButton("Insert");
+        add(insert);
 
-		mnu.add(insert);
-		mnu.add(update);
-		mnu.add(delete);
-		mnu2.add(navigate);
-		mnu2.add(viewlist);
-		mnu2.add(search);
-		mbar.add(mnu);
-		mbar.add(mnu2);
-		insert.addActionListener(this);
-		update.addActionListener(this);
-		delete.addActionListener(this);
-		viewlist.addActionListener(this);
-		navigate.addActionListener(this);
-		search.addActionListener(this);
-	}
+        update = new JButton("Update");
+        add(update);
 
-	public void actionPerformed(ActionEvent evt)
-	{
-		String str = evt.getActionCommand();
-		if (str.equals("Insert"))
-		{
-			int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Update Table",
-					JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-			
-			Insert obj = new Insert(chosen);
-			obj.setSize(300, 300);
-			obj.setVisible(true);
+        delete = new JButton("Delete");
+        add(delete);
 
-			//Loading the driver class to connect to SQL database
-			try
-			{
-				Class.forName("oracle.jdbc.driver.OracleDriver");
-				//Creating the Connection object
-				Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.scs.ryerson.ca:1521:orcl","adaci","12113408");
-				Statement statement = connection.createStatement();
+        search = new JButton("Search");
+        add(search);
 
-				//Executing the statement query
-				ResultSet results = statement.executeQuery("select * from tickets");
+        navigate = new JButton("Navigate");
+        add(navigate);
 
-				//Printing out the results of the query
-				while(results.next())
-					System.out.println(results.getInt(1));
+        viewlist = new JButton("Viewlist");
+        add(viewlist);
 
-					//Closing the connection
-					connection.close();
-			}
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        /*
+        mbar = new JMenuBar();
+        setJMenuBar(mbar);
+        mnu = new JMenu("Record Ops");
+        mnu2 = new JMenu("Transactions");
+        insert = new JMenuItem("Insert");
+        update = new JMenuItem("Update");
+        delete = new JMenuItem("Delete");
+        viewlist = new JMenuItem("ViewList");
+        navigate = new JMenuItem("Navigate");
+        search = new JMenuItem("Search");
 
-			catch(Exception e)
-			{
-				System.out.println(e);
-			}
-		}
+        mnu.add(insert);
+        mnu.add(update);
+        mnu.add(delete);
+        mnu2.add(navigate);
+        mnu2.add(viewlist);
+        mnu2.add(search);
 
-		if (str.equals("Update"))
-		{
-			// JOptionPane.showMessageDialog(this,"You Clicked Update Button");
 
-			int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Update Table",
-			JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-			Update obj = new Update(chosen);
-			//obj.setSize(300, 300);
-			obj.setVisible(true);
+        mbar.add(mnu);
+        mbar.add(mnu2);*/
+        insert.addActionListener(this);
+        update.addActionListener(this);
+        delete.addActionListener(this);
+        viewlist.addActionListener(this);
+        navigate.addActionListener(this);
+        search.addActionListener(this);
+    }
 
-			//Loading the driver class to connect to SQL database
-			try
-			{
-				Class.forName("oracle.jdbc.driver.OracleDriver");
-				//Creating the Connection object
-				Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.scs.ryerson.ca:1521:orcl","adaci","12113408");
-				Statement statement = connection.createStatement();
+    public void actionPerformed(ActionEvent evt)
+    {
+        String str = evt.getActionCommand();
+        if (str.equals("Insert"))
+        {
+            int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Update Table",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
 
-				//Executing the statement query
-				ResultSet results = statement.executeQuery("select * from tickets");
+            Insert obj = new Insert(chosen);
+            obj.setSize(300, 300);
+            obj.setVisible(true);
 
-				//Printing out the results of the query
-				while(results.next())
-					System.out.println(results.getInt(1));
+            //Loading the driver class to connect to SQL database
+            try
+            {
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                //Creating the Connection object
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.scs.ryerson.ca:1521:orcl","adaci","12113408");
+                Statement statement = connection.createStatement();
 
-					//Closing the connection
-					connection.close();
-			}
+                //Executing the statement query
+                ResultSet results = statement.executeQuery("select * from tickets");
 
-			catch(Exception e)
-			{
-				System.out.println(e);
-			}
-		}
+                //Printing out the results of the query
+                while(results.next())
+                    System.out.println(results.getInt(1));
 
-		if (str.equals("Delete"))
-		{
-			//JOptionPane.showMessageDialog(this, "You Clicked Delete Button");
-			Delete obj = new Delete();
-			obj.setSize(300, 300);
-			obj.setVisible(true);
+                //Closing the connection
+                connection.close();
+            }
 
-			//Loading the driver class to connect to SQL database
-			try
-			{
-				Class.forName("oracle.jdbc.driver.OracleDriver");
-				//Creating the Connection object
-				Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.scs.ryerson.ca:1521:orcl","adaci","12113408");
-				Statement statement = connection.createStatement();
+            catch(Exception e)
+            {
+                System.out.println(e);
+            }
+        }
 
-				//Executing the statement query
-				ResultSet results = statement.executeQuery("select * from tickets");
+        if (str.equals("Update"))
+        {
+            // JOptionPane.showMessageDialog(this,"You Clicked Update Button");
 
-				//Printing out the results of the query
-				while(results.next())
-					System.out.println(results.getInt(1));
+            int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Update Table", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+            Update obj = new Update(chosen);
+            //obj.setSize(300, 300);
+            obj.setVisible(true);
 
-					//Closing the connection
-					connection.close();
-			}
+            //Loading the driver class to connect to SQL database
+            try
+            {
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                //Creating the Connection object
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.scs.ryerson.ca:1521:orcl","adaci","12113408");
+                Statement statement = connection.createStatement();
 
-			catch(Exception e)
-			{
-				System.out.println(e);
-			}
-		}
+                //Executing the statement query
+                ResultSet results = statement.executeQuery("select * from tickets");
 
-		if (str.equals("Search"))
-		{
-			int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Update Table",
-					JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-			search obj = new search(chosen);
-			obj.setSize(300, 300);
-			obj.setVisible(true);
+                //Printing out the results of the query
+                while(results.next())
+                    System.out.println(results.getInt(1));
 
-			//Loading the driver class to connect to SQL database
-			try
-			{
-				Class.forName("oracle.jdbc.driver.OracleDriver");
-				//Creating the Connection object
-				Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.scs.ryerson.ca:1521:orcl","adaci","12113408");
-				Statement statement = connection.createStatement();
+                //Closing the connection
+                connection.close();
+            }
 
-				//Executing the statement query
-				ResultSet results = statement.executeQuery("select * from tickets");
+            catch(Exception e)
+            {
+                System.out.println(e);
+            }
+        }
 
-				//Printing out the results of the query
-				while(results.next())
-					System.out.println(results.getInt(1));
+        if (str.equals("Delete"))
+        {
+            //JOptionPane.showMessageDialog(this, "You Clicked Delete Button");
+            Delete obj = new Delete();
+            obj.setSize(300, 300);
+            obj.setVisible(true);
 
-					//Closing the connection
-					connection.close();
-			}
+            //Loading the driver class to connect to SQL database
+            try
+            {
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                //Creating the Connection object
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.scs.ryerson.ca:1521:orcl","adaci","12113408");
+                Statement statement = connection.createStatement();
 
-			catch(Exception e)
-			{
-				System.out.println(e);
-			}
-		}
+                //Executing the statement query
+                ResultSet results = statement.executeQuery("select * from tickets");
 
-		if (str.equals("ViewList"))
-		{
-			JOptionPane.showMessageDialog(this, "You Clicked ViewList Button");
-			viewlist obj = new viewlist();
-			obj.setSize(300, 300);
-			obj.setVisible(true);
+                //Printing out the results of the query
+                while(results.next())
+                    System.out.println(results.getInt(1));
 
-			//Loading the driver class to connect to SQL database
-			try
-			{
-				Class.forName("oracle.jdbc.driver.OracleDriver");
-				//Creating the Connection object
-				Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.scs.ryerson.ca:1521:orcl","adaci","12113408");
-				Statement statement = connection.createStatement();
+                //Closing the connection
+                connection.close();
+            }
 
-				//Executing the statement query
-				ResultSet results = statement.executeQuery("select * from tickets");
+            catch(Exception e)
+            {
+                System.out.println(e);
+            }
+        }
 
-				//Printing out the results of the query
-				while(results.next())
-					System.out.println(results.getInt(1));
+        if (str.equals("Search"))
+        {
+            int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Update Table",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+            Search obj = new Search(chosen);
+            obj.setSize(300, 300);
+            obj.setVisible(true);
 
-					//Closing the connection
-					connection.close();
-			}
+            //Loading the driver class to connect to SQL database
+            try
+            {
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                //Creating the Connection object
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.scs.ryerson.ca:1521:orcl","adaci","12113408");
+                Statement statement = connection.createStatement();
 
-			catch(Exception e)
-			{
-				System.out.println(e);
-			}
-		}
+                //Executing the statement query
+                ResultSet results = statement.executeQuery("select * from tickets");
 
-		if (str.equals("Navigate"))
-		{
-			JOptionPane.showMessageDialog(this, "You Clicked Naviagate Button");
-			recnav obj = new recnav();
-			obj.setSize(300, 300);
-			obj.setVisible(true);
+                //Printing out the results of the query
+                while(results.next())
+                    System.out.println(results.getInt(1));
 
-			//Loading the driver class to connect to SQL database
-			try
-			{
-				Class.forName("oracle.jdbc.driver.OracleDriver");
-				//Creating the Connection object
-				Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.scs.ryerson.ca:1521:orcl","adaci","12113408");
-				Statement statement = connection.createStatement();
+                //Closing the connection
+                connection.close();
+            }
 
-				//Executing the statement query
-				ResultSet results = statement.executeQuery("select * from tickets");
+            catch(Exception e)
+            {
+                System.out.println(e);
+            }
+        }
 
-				//Printing out the results of the query
-				while(results.next())
-					System.out.println(results.getInt(1));
+        if (str.equals("ViewList"))
+        {
+            JOptionPane.showMessageDialog(this, "You Clicked ViewList Button");
+            viewlist obj = new viewlist();
+            obj.setSize(300, 300);
+            obj.setVisible(true);
 
-					//Closing the connection
-					connection.close();
-			}
+            //Loading the driver class to connect to SQL database
+            try
+            {
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                //Creating the Connection object
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.scs.ryerson.ca:1521:orcl","adaci","12113408");
+                Statement statement = connection.createStatement();
 
-			catch(Exception e)
-			{
-				System.out.println(e);
-			}
-		}
-	}
+                //Executing the statement query
+                ResultSet results = statement.executeQuery("select * from tickets");
 
-	public static void main(String[] args)
-	{
-		obj = new Main();
-		obj.setSize(300, 300);
-		obj.setLocationRelativeTo(null);
-		obj.setVisible(true);
-	}
+                //Printing out the results of the query
+                while(results.next())
+                    System.out.println(results.getInt(1));
+
+                //Closing the connection
+                connection.close();
+            }
+
+            catch(Exception e)
+            {
+                System.out.println(e);
+            }
+        }
+
+        if (str.equals("Navigate"))
+        {
+            JOptionPane.showMessageDialog(this, "You Clicked Naviagate Button");
+            recnav obj = new recnav();
+            obj.setSize(300, 300);
+            obj.setVisible(true);
+
+            //Loading the driver class to connect to SQL database
+            try
+            {
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                //Creating the Connection object
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.scs.ryerson.ca:1521:orcl","adaci","12113408");
+                Statement statement = connection.createStatement();
+
+                //Executing the statement query
+                ResultSet results = statement.executeQuery("select * from tickets");
+
+                //Printing out the results of the query
+                while(results.next())
+                    System.out.println(results.getInt(1));
+
+                //Closing the connection
+                connection.close();
+            }
+
+            catch(Exception e)
+            {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        obj = new Main();
+        obj.setSize(300, 300);
+        obj.setLocationRelativeTo(null);
+        obj.setVisible(true);
+    }
 }
