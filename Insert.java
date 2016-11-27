@@ -232,7 +232,7 @@ public class Insert extends JFrame implements ActionListener {
 		}
 
 		this.setLocationRelativeTo(null);
-		b1 = new JButton("Update");
+		b1 = new JButton("Insert");
 		b1.setMnemonic(KeyEvent.VK_ENTER);
 		b1.addActionListener(this);
 		
@@ -251,20 +251,78 @@ public class Insert extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent evt) {
 		String s = evt.getActionCommand();
 		if (s.equals("Insert")) {
-			try {
-				if(this.option == 0){
-				}else if(this.option == 1){
-				}else if(this.option == 2){
-				}else if(this.option == 3){
+			System.out.println("hello world!");
+			Connection c = null;
+		    Statement stmt = null;
+		    try {
+		      Class.forName("org.sqlite.JDBC");
+		      c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
+		      c.setAutoCommit(false);
+		      System.out.println("Opened database successfully");
+		      String sql = "";
+		      try {
+					
+					if(this.option == 0){
+						
+						stmt = c.createStatement();
+					      sql = "INSERT INTO general_employee (employee_num,employee_name) " +
+					                   "VALUES ("+employee_num_t.getText()+", '"+employee_name_t.getText()+"');";
+						
+					}else if(this.option == 1){
+						/* "CREATE TABLE ticket " +
+		                   "(ticket_num INT PRIMARY KEY     NOT NULL," +
+		                   " date_opened           CHAR(30) NOT NULL,"+
+		                   " dare_closed           CHAR(30),"+
+		                   "assignment_group       CHAR(20) NOT NULL,"+
+		                   "status                 CHAR(10) DEFAULT 'Open',"+
+		                   "priority               INT      NOT NULL,"+
+		                   "opened_for             CHAR(25) NOT NULL)"; */
+						stmt = c.createStatement();
+					      sql = "INSERT INTO ticket (ticket_num,date_opened,date_closed,assignment_group,status,priority,opened_for) " +
+					                   "VALUES ("+ticket_num_t.getText()+", '"+date_closed_t.getText()+", '"+assignment_group_t.getText()+
+					                   ", '"+status_t.getText()+", '"+priority_t.getText()+", '"+opened_for_t.getText()+"');";
+						/*ticket_num_t = new JTextField(10);
+						date_opened_t = new JTextField(10);
+						date_closed_t = new JTextField(10);
+						assignment_group_t = new JTextField(10);
+						status_t = new JTextField(10);
+						priority_t = new JTextField(10);
+						opened_for_t = new JTextField(10);*/
+
+					}else if(this.option == 2){
+					}else if(this.option == 3){
+					}
+				} catch (Exception ex) {
 				}
-			} catch (Exception ex) {
-			}
+		/*      stmt = c.createStatement();
+		      String sql = "INSERT INTO general_employee (employee_num,employee_name) " +
+		                   "VALUES (10000001, 'Ajani Goldmane');"; 
+		      stmt.executeUpdate(sql);
+		      System.out.println("Added ajani");
+		      sql = "INSERT INTO general_employee (employee_num,employee_name) " +
+		            "VALUES (10000002, 'Dack Fayden');"; 
+		      stmt.executeUpdate(sql);
+		      System.out.println("2");
+		      sql = "INSERT INTO general_employee (employee_num,employee_name) " +
+		            "VALUES (10000003, 'Domri Rade');"; 
+		    //  stmt.executeUpdate(sql);*/
+		      if(!sql.equals(""))
+		    	  stmt.executeUpdate(sql);
+
+		      stmt.close();
+		      c.commit();
+		      c.close();
+		    } catch ( Exception e ) {
+		    	JOptionPane.showMessageDialog(this, e.getMessage());
+		      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		      //System.exit(0);
+		    }
+		    System.out.println("Records created successfully");
+			
 		}
 	}
 
 	public static void main(String[] args) {
-		viewlist obj = new viewlist();
-		obj.setSize(300, 300);
-		obj.setVisible(true);
+		
 	}
 }

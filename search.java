@@ -252,15 +252,41 @@ public class search extends JFrame implements ActionListener {
 		String s = evt.getActionCommand();
 		
 		if (s.equals("Search")) {
+			String output = "";
 			try {
+				Connection c = null;
+			    Statement stmt = null;
+			    try {
+			      Class.forName("org.sqlite.JDBC");
+			      c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
+			      c.setAutoCommit(false);
+			      System.out.println("Opened database successfully");
+
+			      stmt = c.createStatement();
+			      ResultSet rs = stmt.executeQuery( "SELECT * FROM ticket;" );
+			      
+			      while ( rs.next() ) {
+			    	  output = rs.getInt("ticket_num")+" | "+rs.getString("date_opened")+" | "+rs.getString("date_opened")+" | "+rs.getString("assignment_group")
+			    	  	+" | "+rs.getString("assignment_group")+" | "+rs.getString("status")+" | "+rs.getString("priority")+" | "+rs.getString("opened_for");
+			    	  Table display_table = new Table(output);
+						display_table.setVisible(true);
+			      }
+			      rs.close();
+			      stmt.close();
+			      c.close();
+			    } catch ( Exception e ) {
+			      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			      System.exit(0);
+			    }
+			    System.out.println("Operation done successfully");
 				//rs.first();
 				if(this.option == 0){
 				}else if(this.option == 1){
 				}else if(this.option == 2){
 				}else if(this.option == 3){
 				}
-				Table display_table = new Table("SQL Data Here");
-				display_table.setVisible(true);
+				//Table display_table = new Table(output);
+				//display_table.setVisible(true);
 			} catch (Exception eee) {
 			}
 

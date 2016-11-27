@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.sql.*;
-
+import java.sql.*;
 public class Delete extends JFrame implements ActionListener {
 	JPanel panel;
 	JLabel general_employee_l, tickets_l, service_agent_l, assignment_group_l;
@@ -81,8 +81,9 @@ public class Delete extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		String str = evt.getActionCommand();
+		
 		if (str.equals("Delete")) {
-			
+			 
 		}
 	}
 }
