@@ -251,47 +251,275 @@ public class search extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent evt) {
 		String s = evt.getActionCommand();
 		
-		if (s.equals("Search")) {
-			String output = "";
-			try {
-				Connection c = null;
-			    Statement stmt = null;
-			    try {
-			      Class.forName("org.sqlite.JDBC");
-			      c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
-			      c.setAutoCommit(false);
-			      System.out.println("Opened database successfully");
+		if (s.equals("Search")) 
+		{
+			    //Simple Query 1
+				if(this.option == 0)
+				{
+					try 
+					{
+						Connection c = null;
+					    Statement stmt = null;
+					    Class.forName("org.sqlite.JDBC");
+					    c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
+					    c.setAutoCommit(false);
+					    System.out.println("Opened database successfully");
 
-			      stmt = c.createStatement();
-			      ResultSet rs = stmt.executeQuery( "SELECT * FROM ticket;" );
-			      
-			      while ( rs.next() ) {
-			    	  output = rs.getInt("ticket_num")+" | "+rs.getString("date_opened")+" | "+rs.getString("date_opened")+" | "+rs.getString("assignment_group")
-			    	  	+" | "+rs.getString("assignment_group")+" | "+rs.getString("status")+" | "+rs.getString("priority")+" | "+rs.getString("opened_for");
-			    	  Table display_table = new Table(output);
-						display_table.setVisible(true);
-			      }
-			      rs.close();
-			      stmt.close();
-			      c.close();
-			    } catch ( Exception e ) {
-			      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-			      System.exit(0);
-			    }
-			    System.out.println("Operation done successfully");
-				//rs.first();
-				if(this.option == 0){
-				}else if(this.option == 1){
-				}else if(this.option == 2){
-				}else if(this.option == 3){
+					    stmt = c.createStatement();
+					    ResultSet rs = stmt.executeQuery( "SELECT ticket_num FROM tickets WHERE status='Open';" );
+					      	
+					    while (rs.next()) 
+					    {
+					    	int ticket_num = rs.getInt("ticket_num");
+					    	String date_opened = rs.getString("date_opened");
+					    	String date_closed = rs.getString("date_closed");
+					    	String assignment_group = rs.getString("assignment_group");
+					    	String status = rs.getString("status");
+					    	int priority = rs.getInt("priority");
+					    	String opened_for = rs.getString("opened_for");
+					    	
+					    	System.out.println("Ticket Number = " + ticket_num);
+					    	System.out.println("Date Opened = " + date_opened);
+					    	System.out.println("Date Closed = " + date_closed);
+					    	System.out.println("Assignment Group = " + assignment_group);
+					    	System.out.println("Status = " + status);
+					    	System.out.println("Priority = " + priority);
+					    	System.out.println("Opened For: " + opened_for);
+					    }
+					    rs.close();
+					    stmt.close();
+					    c.close();
+					} 
+					catch ( Exception e ) 
+					{
+						System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+					    System.exit(0);
+					}
+					
 				}
-				//Table display_table = new Table(output);
-				//display_table.setVisible(true);
-			} catch (Exception eee) {
-			}
+				//Simple Query 2
+				else if(this.option == 1)
+				{
+					try 
+					{
+						Connection c = null;
+					    Statement stmt = null;
+					    Class.forName("org.sqlite.JDBC");
+					    c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
+					    c.setAutoCommit(false);
+					    System.out.println("Opened database successfully");
 
+					    stmt = c.createStatement();
+					    ResultSet rs = stmt.executeQuery( "SELECT employee_name, 'is a member of', assignment_group FROM service_agent;" );
+					      	
+					    while (rs.next()) 
+					    {  
+					    	System.out.println(rs);
+					    }
+					    rs.close();
+					    stmt.close();
+					    c.close();
+					} 
+					catch ( Exception e ) 
+					{
+						System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+					    System.exit(0);
+					}
+				}
+				//Simple Query 3
+				else if(this.option == 2)
+				{
+					try 
+					{
+						Connection c = null;
+					    Statement stmt = null;
+					    Class.forName("org.sqlite.JDBC");
+					    c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
+					    c.setAutoCommit(false);
+					    System.out.println("Opened database successfully");
+
+					    stmt = c.createStatement();
+					    ResultSet rs = stmt.executeQuery( "SELECT assignment_group FROM tickets WHERE status = 'Closed' ORDER BY assignment_group DESC;" );
+					      	
+					    System.out.println("The following groups have completed tickets:");
+					    while (rs.next()) 
+					    {  
+					    	System.out.println(rs);
+					    }
+					    rs.close();
+					    stmt.close();
+					    c.close();
+					} 
+					catch ( Exception e ) 
+					{
+						System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+					    System.exit(0);
+					}
+				}
+				//Simple Query 4
+				else if(this.option == 3)
+				{
+					try 
+					{
+						Connection c = null;
+					    Statement stmt = null;
+					    Class.forName("org.sqlite.JDBC");
+					    c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
+					    c.setAutoCommit(false);
+					    System.out.println("Opened database successfully");
+
+					    stmt = c.createStatement();
+					    ResultSet rs = stmt.executeQuery( "SELECT assignment_group, 'is responsible for completing ticket ', ticket_num FROM tickets WHERE priority = '1';" );
+					    
+					    
+					    while (rs.next()) 
+					    {
+					    	System.out.println(rs);
+					    }
+					    rs.close();
+					    stmt.close();
+					    c.close();
+					} 
+					catch ( Exception e ) 
+					{
+						System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+					    System.exit(0);
+					}
+				}
+				//Simple Query 5
+				else if(this.option == 4)
+				{
+					try 
+					{
+						Connection c = null;
+					    Statement stmt = null;
+					    Class.forName("org.sqlite.JDBC");
+					    c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
+					    c.setAutoCommit(false);
+					    System.out.println("Opened database successfully");
+
+					    stmt = c.createStatement();
+					    ResultSet rs = stmt.executeQuery( "SELECT * FROM general_employee;" );
+					      	
+					    System.out.println("The following workers are all general employees\n");
+					    
+					    while (rs.next()) 
+					    {  
+					    	int employee_num = rs.getInt("employee_num");
+					    	String employee_name = rs.getString("employee_name");
+					    	
+					    	System.out.println(employee_name + " - " + employee_num);
+					    }
+					    rs.close();
+					    stmt.close();
+					    c.close();
+					} 
+					catch ( Exception e ) 
+					{
+						System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+					    System.exit(0);
+					}
+				}
+				//Simple Query 6
+				else if(this.option == 5)
+				{
+					try 
+					{
+						Connection c = null;
+					    Statement stmt = null;
+					    Class.forName("org.sqlite.JDBC");
+					    c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
+					    c.setAutoCommit(false);
+					    System.out.println("Opened database successfully");
+
+					    stmt = c.createStatement();
+					    ResultSet rs = stmt.executeQuery( "SELECT assignment_group FROM service_agent WHERE employee_num = '50000003';" );
+					      	
+					    System.out.println("The employee with the number 500000003 is in the following assignment group");
+					    while (rs.next()) 
+					    {  
+					    	int employee_num = rs.getInt("employee_num");
+					    	String employee_name = rs.getString("employee_name");
+					    	String assignment_group = rs.getString("assignment_group");
+					    	
+					    	System.out.println(employee_name + " - " + employee_num + " - " + assignment_group);
+					    }
+					    rs.close();
+					    stmt.close();
+					    c.close();
+					} 
+					catch ( Exception e ) 
+					{
+						System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+					    System.exit(0);
+					}
+				}
+				//Simple Query 7
+				else if(this.option == 6)
+				{
+					try 
+					{
+						Connection c = null;
+					    Statement stmt = null;
+					    Class.forName("org.sqlite.JDBC");
+					    c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
+					    c.setAutoCommit(false);
+					    System.out.println("Opened database successfully");
+
+					    stmt = c.createStatement();
+					    ResultSet rs = stmt.executeQuery( "SELECT employee_name FROM service_agent WHERE assignment_group = 'Hardware Repair';" );
+					      	
+					    System.out.println("The following employees are in the Hardware Repair assignment group");
+					    while (rs.next()) 
+					    {  
+					    	String employee_name = rs.getString("employee_name");
+					    	System.out.println(employee_name);
+					    }
+					    rs.close();
+					    stmt.close();
+					    c.close();
+					} 
+					catch ( Exception e ) 
+					{
+						System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+					    System.exit(0);
+					}
+				}
+				//Simple Query 8
+				else if(this.option == 7)
+				{
+					try 
+					{
+						Connection c = null;
+					    Statement stmt = null;
+					    Class.forName("org.sqlite.JDBC");
+					    c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
+					    c.setAutoCommit(false);
+					    System.out.println("Opened database successfully");
+
+					    stmt = c.createStatement();
+					    ResultSet rs = stmt.executeQuery( "SELECT date_closed FROM tickets WHERE ticket_num = 2;" );
+					      	
+					    System.out.println("Ticket 2 was closed on the following date:");
+					    
+					    while (rs.next()) 
+					    {  
+					    	String date_closed = rs.getString("date_closed");
+					    	System.out.println(date_closed);
+					    }
+					    rs.close();
+					    stmt.close();
+					    c.close();
+					} 
+					catch ( Exception e ) 
+					{
+						System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+					    System.exit(0);
+					}
+				}
+			} 
 		}
-	}
+	
 
 	public static void main(String[] args) {
 	}
