@@ -102,42 +102,98 @@ public class Main extends JFrame implements ActionListener
 	      System.out.println("Opened database successfully");
 
 	      stmt = c.createStatement();
-	      /* "CREATE TABLE ticket " +
+	      
+	      /*
+	      //BEGINNING OF CREATING TABLES
+	      String sql;
+	      
+	      //Setting CREATE TABLE command for general_employee table
+	      sql =   "CREATE TABLE general_employee(" +
+	    		  "employee_num INTEGER PRIMARY KEY CHECK(employee_num BETWEEN 10000000 AND 499999999)," +
+	    		  "employee_name VARCHAR2(30) NOT NULL)";
+	      
+	      //Create "general_employee" table
+	      stmt.executeUpdate(sql);
+	      
+	      //Setting CREATE TABLE command for ticket table
+	      sql =        "CREATE TABLE ticket " +
 	                   "(ticket_num INT PRIMARY KEY     NOT NULL," +
 	                   " date_opened           CHAR(30) NOT NULL,"+
 	                   " dare_closed           CHAR(30),"+
 	                   "assignment_group       CHAR(20) NOT NULL,"+
 	                   "status                 CHAR(10) DEFAULT 'Open',"+
 	                   "priority               INT      NOT NULL,"+
-	                   "opened_for             CHAR(25) NOT NULL)"; */
-	      /*"CREATE TABLE service_agent " +
+	                   "opened_for             CHAR(25) NOT NULL)"; 
+	      
+	      //Create "ticket" table
+	      stmt.executeUpdate(sql);
+
+	      //Setting CREATE TABLE command for service_agent table
+	      sql =        "CREATE TABLE service_agent " +
 	                   "(employee_num INT PRIMARY KEY     NOT NULL," +
 	                   " assignment_group           CHAR(20),"+
-	                   " employee_name              CHAR(30) NOT NULL)"*/
-	      /*"CREATE TABLE assigned " +
-	                   " (ticket_num INT                REFERENCES ticket(ticket_num)           NOT NULL," +
-	                   " assignment_group   VARCHAR(20) REFERENCES assignment_group(group_name) NOT NULL,"+
-	                   " primary key(ticket_num,assignment_group))"
-*/
-	      /*  "CREATE TABLE creates " +
-	                   " (ticket_num INT       REFERENCES ticket(ticket_num)             NOT NULL," +
-	                   " employee_num   INT    REFERENCES general_employee(employee_num) NOT NULL,"+
-	                   " primary key(ticket_num,employee_num))"*/
-	      /*  "CREATE TABLE part_of " +
-	                   " (group_name VARCHAR(20)  REFERENCES assignment_group(group_name)  NOT NULL," +
-	                   " employee_num   INT       REFERENCES service_agent(employee_num)   NOT NULL,"+
-	                   " primary key(group_name,employee_num))"*/
-	    /*  String sql = "CREATE TABLE assigned " +
-                  " (ticket_num INT                REFERENCES ticket(ticket_num)           NOT NULL," +
-                  " assignment_group   VARCHAR(20) REFERENCES assignment_group(group_name) NOT NULL,"+
-                  " primary key(ticket_num,assignment_group))";*/
-	     // stmt.executeUpdate(sql);
+	                   " employee_name              CHAR(30) NOT NULL)";
+	      
+	      //Create "service_agent" table
+	      stmt.executeUpdate(sql);
+	      
+	      //Setting CREATE TABLE command for assignment_group table
+	      sql =   "CREATE TABLE assignment_group(" +
+	    		  "group_name VARCHAR2(30) PRIMARY KEY)";
+	      
+	      //Create "assignment_group" table
+	      stmt.executeUpdate(sql);
+	      
+	      //Setting CREATE TBALE command for assigned table
+	      sql = "CREATE TABLE assigned(" +
+	    		"assignment_group  VARCHAR2(20) REFERENCES assignment_group(group_name)," +
+	    		"ticket_number     INTEGER REFERENCES  tickets(ticket_num)," +
+	    		"PRIMARY KEY(assignment_group, ticket_number)" +
+	    		  ")";
+	      
+	      //Create "assigned" table
+	      stmt.executeUpdate(sql);
+	      
+	      //Setting CREATE TABLE command for dependent_of table
+	      sql = "CREATE TABLE dependent_of" +
+	    		"(employee_number INTEGER," +
+	    		"ticket_number INTEGER," +
+	    		"PRIMARY KEY(employee_number, ticket_number))";
+	      
+	      //Create "dependent_of" table
+	      stmt.executeUpdate(sql);
+	      
+	      //Setting CREATE TABLE command for services table
+	      sql = "CREATE TABLE services" +
+	    		"(" +
+	    		"employee_number INTEGER REFERENCES general_employee(employee_num)," +
+	    		"service_agent_id INTEGER REFERENCES service_agent(employee_num)," +
+	    		"PRIMARY KEY(employee_number, service_agent_id)" +  
+	    		")";
+	     
+	      //Create "services" table
+	      stmt.executeUpdate(sql);
+	      
+	      //Setting CREATE TABLE command for part_of table
+	      sql = "CREATE TABLE part_of" +
+	    		"(" +
+	    		"employee_num INTEGER REFERENCES service_agent(employee_num)," +
+	    		"group_name VARCHAR2(10) REFERENCES assignment_group(group_name)," +
+	    		"PRIMARY KEY(employee_num, group_name)" +
+	    	  	")";
+	      
+	      //Create "part_of" table
+	      stmt.executeUpdate(sql);
+	      
+	      //END OF CREATING TABLES
+	      */
+	      
 	      stmt.close();
 	      c.close();
 	    } catch ( Exception e ) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	      System.exit(0);
 	    }
-	    System.out.println("Table created successfully");
+	    System.out.println("Tables created successfully");
     }
 }
