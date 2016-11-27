@@ -280,9 +280,8 @@ public class search extends JFrame implements ActionListener {
 					    	int priority = rs.getInt("priority");
 					    	String opened_for = rs.getString("opened_for");
 					    	
-					    	
-					    	
-					    	output += ticket_num + " | " + date_opened + " | " + date_closed + " | " + assignment_group + " | " + status + " | " + priority + " | " + opened_for;
+					    	output += ticket_num + " | " + date_opened + " | " + date_closed + " | " 
+					    	+ assignment_group + " | " + status + " | " + priority + " | " + opened_for + "\n";
 					    	
 					    	/*
 					    	System.out.println("Ticket Number = " + ticket_num);
@@ -324,10 +323,16 @@ public class search extends JFrame implements ActionListener {
 					    stmt = c.createStatement();
 					    ResultSet rs = stmt.executeQuery( "SELECT employee_name, 'is a member of', assignment_group FROM service_agent;" );
 					      	
+					    String output = "";
+					    
 					    while (rs.next()) 
 					    {  
-					    	System.out.println(rs);
+					    	output += rs + " | \n";
 					    }
+					    
+					    Table display_table = new Table(output);
+					    display_table.setVisible(true);
+					    
 					    rs.close();
 					    stmt.close();
 					    c.close();
@@ -354,10 +359,17 @@ public class search extends JFrame implements ActionListener {
 					    ResultSet rs = stmt.executeQuery( "SELECT assignment_group FROM tickets WHERE status = 'Closed' ORDER BY assignment_group DESC;" );
 					      	
 					    System.out.println("The following groups have completed tickets:");
+					    
+					    String output = "";
+					    
 					    while (rs.next()) 
 					    {  
-					    	System.out.println(rs);
+					    	output += rs + " | \n";
 					    }
+					    
+					    Table display_table = new Table(output);
+					    display_table.setVisible(true);
+					    
 					    rs.close();
 					    stmt.close();
 					    c.close();
@@ -383,11 +395,16 @@ public class search extends JFrame implements ActionListener {
 					    stmt = c.createStatement();
 					    ResultSet rs = stmt.executeQuery( "SELECT assignment_group, 'is responsible for completing ticket ', ticket_num FROM tickets WHERE priority = '1';" );
 					    
+					    String output = "";
 					    
 					    while (rs.next()) 
 					    {
-					    	System.out.println(rs);
+					    	output += rs + " | \n";
 					    }
+					    
+					    Table display_table = new Table(output);
+					    display_table.setVisible(true);
+					    
 					    rs.close();
 					    stmt.close();
 					    c.close();
@@ -415,13 +432,19 @@ public class search extends JFrame implements ActionListener {
 					      	
 					    System.out.println("The following workers are all general employees\n");
 					    
+					    String output = "";
+					    
 					    while (rs.next()) 
 					    {  
 					    	int employee_num = rs.getInt("employee_num");
 					    	String employee_name = rs.getString("employee_name");
 					    	
-					    	System.out.println(employee_name + " - " + employee_num);
+					    	output += employee_num + " | " + employee_name + "\n";
 					    }
+					    
+					    Table display_table = new Table(output);
+					    display_table.setVisible(true);
+					    
 					    rs.close();
 					    stmt.close();
 					    c.close();
@@ -448,14 +471,21 @@ public class search extends JFrame implements ActionListener {
 					    ResultSet rs = stmt.executeQuery( "SELECT assignment_group FROM service_agent WHERE employee_num = '50000003';" );
 					      	
 					    System.out.println("The employee with the number 500000003 is in the following assignment group");
+					    
+					    String output = "";
+					    
 					    while (rs.next()) 
 					    {  
 					    	int employee_num = rs.getInt("employee_num");
 					    	String employee_name = rs.getString("employee_name");
 					    	String assignment_group = rs.getString("assignment_group");
 					    	
-					    	System.out.println(employee_name + " - " + employee_num + " - " + assignment_group);
+					    	output += employee_num + " | " + employee_name + " | " + assignment_group + "\n";
 					    }
+					    
+					    Table display_table = new Table(output);
+					    display_table.setVisible(true);
+					    
 					    rs.close();
 					    stmt.close();
 					    c.close();
@@ -482,11 +512,19 @@ public class search extends JFrame implements ActionListener {
 					    ResultSet rs = stmt.executeQuery( "SELECT employee_name FROM service_agent WHERE assignment_group = 'Hardware Repair';" );
 					      	
 					    System.out.println("The following employees are in the Hardware Repair assignment group");
+					    
+					    String output = "";
+					    
 					    while (rs.next()) 
 					    {  
 					    	String employee_name = rs.getString("employee_name");
-					    	System.out.println(employee_name);
+
+					    	output += employee_name + "\n";
 					    }
+					    
+					    Table display_table = new Table(output);
+					    display_table.setVisible(true);
+					    
 					    rs.close();
 					    stmt.close();
 					    c.close();
@@ -514,11 +552,19 @@ public class search extends JFrame implements ActionListener {
 					      	
 					    System.out.println("Ticket 2 was closed on the following date:");
 					    
+					    String output = "";
+					    
 					    while (rs.next()) 
 					    {  
 					    	String date_closed = rs.getString("date_closed");
-					    	System.out.println(date_closed);
+
+					    	output += date_closed + "\n";
+					    	
 					    }
+					    
+					    Table display_table = new Table(output);
+					    display_table.setVisible(true);
+					    
 					    rs.close();
 					    stmt.close();
 					    c.close();
