@@ -30,11 +30,11 @@ public class Insert extends JFrame implements ActionListener {
 		g1 = new GridBagLayout();
 		panel = (JPanel) getContentPane();
 		panel.setLayout(g1);
-
+		this.option = option;
 		if(option == 0){
 			this.setSize(500, 500);
-			employee_name_l = new JLabel("Employ No");
-			employee_num_l = new JLabel("Employee Name");
+			employee_name_l = new JLabel("Employee Name");
+			employee_num_l = new JLabel("Employee No");
 			employee_name_t = new JTextField(10);
 			employee_num_t = new JTextField(10);
 
@@ -254,10 +254,12 @@ public class Insert extends JFrame implements ActionListener {
 			System.out.println("hello world!");
 			Connection c = null;
 		    Statement stmt = null;
+		    PreparedStatement ps = null;
 		    try {
 		      Class.forName("org.sqlite.JDBC");
 		      c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
 		      c.setAutoCommit(false);
+		      
 		      System.out.println("Opened database successfully");
 		      String sql = "";
 		      try {
@@ -265,34 +267,44 @@ public class Insert extends JFrame implements ActionListener {
 					if(this.option == 0){
 						
 						stmt = c.createStatement();
-					      sql = "INSERT INTO general_employee (employee_num,employee_name) " +
-					                   "VALUES ("+employee_num_t.getText()+", '"+employee_name_t.getText()+"');";
-						
+					      sql = "INSERT INTO general_employee (employee_num";
+					      if(employee_num_t.getText().equals(""))throw new IllegalArgumentException("Employee Number Cant be Empty");
+					      if(!employee_name_t.getText().equals("")) sql+=", employee_name";
+					      sql+=") VALUES ("+employee_num_t.getText();
+					      if(!employee_name_t.getText().equals("")) sql+=", '"+employee_name_t.getText()+"'";
+					      sql+=");";
+					      System.out.println(sql);
+					      stmt.executeUpdate(sql);
 					}else if(this.option == 1){
-						/* "CREATE TABLE ticket " +
-		                   "(ticket_num INT PRIMARY KEY     NOT NULL," +
-		                   " date_opened           CHAR(30) NOT NULL,"+
-		                   " dare_closed           CHAR(30),"+
-		                   "assignment_group       CHAR(20) NOT NULL,"+
-		                   "status                 CHAR(10) DEFAULT 'Open',"+
-		                   "priority               INT      NOT NULL,"+
-		                   "opened_for             CHAR(25) NOT NULL)"; */
 						stmt = c.createStatement();
-					      sql = "INSERT INTO ticket (ticket_num,date_opened,date_closed,assignment_group,status,priority,opened_for) " +
-					                   "VALUES ("+ticket_num_t.getText()+", '"+date_closed_t.getText()+", '"+assignment_group_t.getText()+
-					                   ", '"+status_t.getText()+", '"+priority_t.getText()+", '"+opened_for_t.getText()+"');";
-						/*ticket_num_t = new JTextField(10);
-						date_opened_t = new JTextField(10);
-						date_closed_t = new JTextField(10);
-						assignment_group_t = new JTextField(10);
-						status_t = new JTextField(10);
-						priority_t = new JTextField(10);
-						opened_for_t = new JTextField(10);*/
+					    sql = "INSERT INTO ticket (";
+					    if(!ticket_num_t.getText().equals("")) sql+="ticket_num";
+					    else throw new IllegalArgumentException("Ticket Number Cant Be Empty");
+					    if(!date_opened_t.getText().equals("")) sql+=", date_opened";
+					    if(!date_closed_t.getText().equals("")) sql+=", date_closed";
+					    if(!assignment_group_t.getText().equals("")) sql+=", assignment_group";
+					    if(!status_t.getText().equals("")) sql+=", status";
+					    if(!priority_t.getText().equals("")) sql+=", priority";
+					    if(!opened_for_t.getText().equals("")) sql+=", opened_for";
+					    sql+=" ) ";
+					    sql += "VALUES (";
+					    if(!ticket_num_t.getText().equals("")) sql+= ""+ticket_num_t.getText();
+					    if(!date_opened_t.getText().equals("")) sql+=", '" +date_opened_t.getText()+"'";
+					    if(!date_closed_t.getText().equals("")) sql+=", '"+date_closed_t.getText()+"'";
+					    if(!assignment_group_t.getText().equals("")) sql+=", '"+assignment_group_t.getText()+"'";
+					    if(!status_t.getText().equals("")) sql+=", '"+status_t.getText()+"'";
+					    if(!priority_t.getText().equals("")) sql+=", "+priority_t.getText();
+					    if(!opened_for_t.getText().equals("")) sql+=", '"+opened_for_t.getText()+"'";
+					    sql+=");";
+					    System.out.println(sql);
+					    stmt.executeUpdate(sql);
+					    System.out.println("Insert Successful");
 
 					}else if(this.option == 2){
 					}else if(this.option == 3){
 					}
 				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(this, ex.getMessage());
 				}
 		/*      stmt = c.createStatement();
 		      String sql = "INSERT INTO general_employee (employee_num,employee_name) " +
@@ -306,18 +318,20 @@ public class Insert extends JFrame implements ActionListener {
 		      sql = "INSERT INTO general_employee (employee_num,employee_name) " +
 		            "VALUES (10000003, 'Domri Rade');"; 
 		    //  stmt.executeUpdate(sql);*/
-		      if(!sql.equals(""))
+		     /* if(!sql.equals("")){
 		    	  stmt.executeUpdate(sql);
+		    	  System.out.println("Insert Successful");
+		      }*/
 
 		      stmt.close();
 		      c.commit();
 		      c.close();
 		    } catch ( Exception e ) {
 		    	JOptionPane.showMessageDialog(this, e.getMessage());
-		      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		      System.err.println( e.getClass().getName() + ": " + e.getMessage() + ", " + e);
 		      //System.exit(0);
 		    }
-		    System.out.println("Records created successfully");
+		    //System.out.println("Records created successfully");
 			
 		}
 	}
