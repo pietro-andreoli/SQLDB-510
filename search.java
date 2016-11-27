@@ -267,7 +267,9 @@ public class search extends JFrame implements ActionListener {
 
 					    stmt = c.createStatement();
 					    ResultSet rs = stmt.executeQuery( "SELECT ticket_num FROM tickets WHERE status='Open';" );
-					      	
+					      
+					    String output = "";
+					    
 					    while (rs.next()) 
 					    {
 					    	int ticket_num = rs.getInt("ticket_num");
@@ -278,6 +280,11 @@ public class search extends JFrame implements ActionListener {
 					    	int priority = rs.getInt("priority");
 					    	String opened_for = rs.getString("opened_for");
 					    	
+					    	
+					    	
+					    	output += ticket_num + " | " + date_opened + " | " + date_closed + " | " + assignment_group + " | " + status + " | " + priority + " | " + opened_for;
+					    	
+					    	/*
 					    	System.out.println("Ticket Number = " + ticket_num);
 					    	System.out.println("Date Opened = " + date_opened);
 					    	System.out.println("Date Closed = " + date_closed);
@@ -285,7 +292,12 @@ public class search extends JFrame implements ActionListener {
 					    	System.out.println("Status = " + status);
 					    	System.out.println("Priority = " + priority);
 					    	System.out.println("Opened For: " + opened_for);
+					    	*/
 					    }
+					    
+					    Table display_table = new Table(output);
+					    display_table.setVisible(true);
+					    
 					    rs.close();
 					    stmt.close();
 					    c.close();
