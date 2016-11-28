@@ -83,7 +83,51 @@ public class Delete extends JFrame implements ActionListener {
 		String str = evt.getActionCommand();
 		
 		if (str.equals("Delete")) {
-			 
+			Connection c = null;
+		    Statement stmt = null;
+		    try {
+		      Class.forName("org.sqlite.JDBC");
+		      c = DriverManager.getConnection("jdbc:sqlite:helpdesk.db");
+		      System.out.println("Opened database successfully");
+		      String sql = "";
+		      stmt = c.createStatement();
+		      if(del_all_c.isSelected()){
+		    	  sql = "DROP TABLE ticket";
+		    	  stmt.executeUpdate(sql);
+		    	  sql = "DROP TABLE general_employee";
+		    	  stmt.executeUpdate(sql);   
+		    	  sql = "DROP TABLE service_agent";
+				  stmt.executeUpdate(sql);
+				  sql = "DROP TABLE assignment_group";
+				  stmt.executeUpdate(sql);
+		      }else{
+			      if(tickets_c.isSelected()){
+			    	  sql = "DROP TABLE ticket";
+					     stmt.executeUpdate(sql);
+			      }
+			      if(general_employee_c.isSelected()){
+			    	  sql = "DROP TABLE general_employee";
+					     stmt.executeUpdate(sql);
+			      }
+			      if(service_agent_c.isSelected()){
+			    	  sql = "DROP TABLE service_agent";
+					     stmt.executeUpdate(sql);
+			      }
+			      if(assignment_group_c.isSelected()){
+			    	  sql = "DROP TABLE assignment_group";
+					     stmt.executeUpdate(sql);
+			      }
+		      }
+		     //String sql = "DROP TABLE assignment_group";
+		     stmt.executeUpdate(sql);
+		     
+		      stmt.close();
+		      c.close();
+		    } catch ( Exception e ) {
+		      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		      System.exit(0);
+		    }
+		    System.out.println("Table Dropped");
 		}
 	}
 }

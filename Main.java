@@ -77,7 +77,7 @@ public class Main extends JFrame implements ActionListener
         {
         	String[] query_type = {"Basic", "Advanced"};
         	String[] basic = {"Find Open Tickets", "List All Agents", "Find Closed Ticket", "Assigned Tickets", "List General Employees", "An Employee's Assignment Group", "List Ticket 2 Close Date"};
-        	String[] advanced = {};
+        	String[] advanced = {"Find Ajani's Tickets", "All Tickets, Excluding Software", "List Saheeli's Tickets", "Hardware and Software Agents", "All Hardware Groups"};
         	int chosen = -1;
         	int query_type_chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Query Stuff",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, query_type, null);
