@@ -75,9 +75,24 @@ public class Main extends JFrame implements ActionListener
 
         if (str.equals("Search"))
         {
-            int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Update Table",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-            search obj = new search(chosen);
+        	String[] query_type = {"Basic", "Advanced"};
+        	String[] basic = {"Find Open Tickets", "List All Agents", "Find Closed Ticket", "Assigned Tickets", "List General Employees", "An Employee's Assignment Group", "List Ticket 2 Close Date"};
+        	String[] advanced = {};
+        	int chosen = -1;
+        	int query_type_chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Query Stuff",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, query_type, null);
+        	if(query_type_chosen == 0){
+        		/*chosen = JOptionPane.showOptionDialog(this, "Which Query Are You Looking To Execute?", "Basic Query Stuff",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, basic, null);*/
+        		JComboBox<String> combo = new JComboBox<String>(basic);
+        		chosen = JOptionPane.showConfirmDialog(this, combo , "Basic Query Stuff", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        	}else{
+        		JComboBox<String> combo = new JComboBox<String>(advanced);
+        		chosen = JOptionPane.showConfirmDialog(this, combo , "Advanced Query Stuff", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) + basic.length;
+        	}
+            if(chosen > -1){
+            	search obj = new search(chosen);
+            }
             obj.setSize(300, 300);
             obj.setVisible(true);
 
@@ -131,8 +146,8 @@ public class Main extends JFrame implements ActionListener
                   " (ticket_num INT                REFERENCES ticket(ticket_num)           NOT NULL," +
                   " assignment_group   VARCHAR(20) REFERENCES assignment_group(group_name) NOT NULL,"+
                   " primary key(ticket_num,assignment_group))";*/
-	     /* String sql = "DROP TABLE ticket";
-	      stmt.executeUpdate(sql);
+	     /*String sql = "DROP TABLE ticket";
+	     stmt.executeUpdate(sql);
 	      sql = "CREATE TABLE ticket " +
           "(ticket_num INT PRIMARY KEY     NOT NULL," +
           " date_opened           VARCHAR(30) NOT NULL,"+
@@ -140,8 +155,8 @@ public class Main extends JFrame implements ActionListener
           "assignment_group       VARCHAR(20) NOT NULL,"+
           "status                 VARCHAR(10) DEFAULT 'Open',"+
           "priority               INT      NOT NULL,"+
-          "opened_for             VARCHAR(25) NOT NULL)";*/
-	     // stmt.executeUpdate(sql);
+          "opened_for             VARCHAR(25) NOT NULL)";
+	      stmt.executeUpdate(sql);*/
 	      stmt.close();
 	      c.close();
 	    } catch ( Exception e ) {
