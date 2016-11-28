@@ -146,17 +146,23 @@ public class Main extends JFrame implements ActionListener
                   " (ticket_num INT                REFERENCES ticket(ticket_num)           NOT NULL," +
                   " assignment_group   VARCHAR(20) REFERENCES assignment_group(group_name) NOT NULL,"+
                   " primary key(ticket_num,assignment_group))";*/
-	     /*String sql = "DROP TABLE ticket";
+	     /* String sql = "DROP TABLE assignment_group";
+		     stmt.executeUpdate(sql);
+		      sql = "CREATE TABLE assignment_group " +
+	          "(name VARCHAR(30) PRIMARY KEY     NOT NULL," +
+	          " open_ticket           INT NOT NULL,"+
+	          " group_member           VARCHAR(30))";
+	     String sql = "DROP TABLE assignment_group";
 	     stmt.executeUpdate(sql);
-	      sql = "CREATE TABLE ticket " +
-          "(ticket_num INT PRIMARY KEY     NOT NULL," +
+	      sql = "CREATE TABLE assignment_group " +
+          "(name INT PRIMARY KEY     NOT NULL," +
           " date_opened           VARCHAR(30) NOT NULL,"+
           " date_closed           VARCHAR(30),"+
           "assignment_group       VARCHAR(20) NOT NULL,"+
           "status                 VARCHAR(10) DEFAULT 'Open',"+
           "priority               INT      NOT NULL,"+
-          "opened_for             VARCHAR(25) NOT NULL)";
-	      stmt.executeUpdate(sql);*/
+          "opened_for             VARCHAR(25) NOT NULL)";*/
+	    //  stmt.executeUpdate(sql);
 	      stmt.close();
 	      c.close();
 	    } catch ( Exception e ) {

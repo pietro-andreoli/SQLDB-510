@@ -12,8 +12,8 @@ public class Insert extends JFrame implements ActionListener {
 	JLabel ticket_num_l, date_opened_l, date_closed_l, assignment_group_l, status_l, priority_l, opened_for_l;
 	JTextField ticket_num_t, date_opened_t, date_closed_t, assignment_group_t, status_t, priority_t, opened_for_t;
 	//Assignment group text and labels
-	JLabel group_name_l;
-	JTextField group_name_t;
+	JLabel group_name_l, open_ticket_l, group_member_l;
+	JTextField group_name_t, open_ticket_t, group_member_t;
 	// String s;
 
 	ResultSet rs;
@@ -169,8 +169,8 @@ public class Insert extends JFrame implements ActionListener {
 			panel.add(opened_for_t);
 		}else if(option == 2){
 			this.setSize(500, 500);
-			employee_name_l = new JLabel("Employ No");
-			employee_num_l = new JLabel("Employee Name");
+			employee_name_l = new JLabel("Employ Name");
+			employee_num_l = new JLabel("Employee No");
 			assignment_group_l = new JLabel ("Assignment Group");
 
 			employee_name_t = new JTextField(10);
@@ -215,20 +215,47 @@ public class Insert extends JFrame implements ActionListener {
 		}else if(option == 3){
 			this.setSize(300, 300);
 			group_name_l = new JLabel ("Group Name");
-
+			open_ticket_l = new JLabel ("Open Ticket");
+			group_member_l = new JLabel ("Group Member");
 			group_name_t = new JTextField(10);
+			open_ticket_t = new JTextField(10);
+			group_member_t = new JTextField(10);
 
 			gbc.anchor = GridBagConstraints.NORTHWEST;
 			gbc.gridx = 1;
-			gbc.gridy = 3;
+			gbc.gridy = 1;
 			g1.setConstraints(group_name_l, gbc);
 			panel.add(group_name_l);
 
 			gbc.anchor = GridBagConstraints.NORTHWEST;
 			gbc.gridx = 4;
-			gbc.gridy = 3;
+			gbc.gridy = 1;
 			g1.setConstraints(group_name_t, gbc);
 			panel.add(group_name_t);
+			
+			gbc.anchor = GridBagConstraints.NORTHWEST;
+			gbc.gridx = 1;
+			gbc.gridy = 2;
+			g1.setConstraints(open_ticket_l, gbc);
+			panel.add(open_ticket_l);
+
+			gbc.anchor = GridBagConstraints.NORTHWEST;
+			gbc.gridx = 4;
+			gbc.gridy = 2;
+			g1.setConstraints(open_ticket_t, gbc);
+			panel.add(open_ticket_t);
+			
+			gbc.anchor = GridBagConstraints.NORTHWEST;
+			gbc.gridx = 1;
+			gbc.gridy = 3;
+			g1.setConstraints(group_member_l, gbc);
+			panel.add(group_member_l);
+
+			gbc.anchor = GridBagConstraints.NORTHWEST;
+			gbc.gridx = 4;
+			gbc.gridy = 3;
+			g1.setConstraints(group_member_t, gbc);
+			panel.add(group_member_t);
 		}
 
 		this.setLocationRelativeTo(null);
@@ -301,10 +328,32 @@ public class Insert extends JFrame implements ActionListener {
 					    System.out.println("Insert Successful");
 
 					}else if(this.option == 2){
+						stmt = c.createStatement();
+					      sql = "INSERT INTO service_agent (employee_num, employee_name";
+					      if(employee_num_t.getText().equals(""))throw new IllegalArgumentException("Employee Number Cant be Empty");
+					      if(employee_name_t.getText().equals(""))throw new IllegalArgumentException("Employee Name Cant be Empty");
+					      if(!assignment_group_t.getText().equals("")) sql+=", assignment_group";
+					      sql+=") VALUES ("+employee_num_t.getText()+", '"+employee_name_t.getText()+"'";
+					      if(!assignment_group_t.getText().equals("")) sql+=", '"+assignment_group_t.getText()+"'";
+					      sql+=");";
+					      System.out.println(sql);
+					      stmt.executeUpdate(sql);
+						
 					}else if(this.option == 3){
+						stmt = c.createStatement();
+					    sql = "INSERT INTO assignment_group (name";
+					    if(group_name_t.getText().equals(""))throw new IllegalArgumentException("Assignment Group Cant be Empty");
+					    if(!open_ticket_t.getText().equals("")) sql+=", open_ticket";
+					    if(!group_member_t.getText().equals("")) sql+=", group_member";
+					    sql+=") VALUES ("+"'"+group_name_t.getText()+"'";
+					    if(!open_ticket_t.getText().equals("")) sql+=", "+open_ticket_t.getText();
+					    if(!group_member_t.getText().equals("")) sql+=", '"+group_member_t.getText()+"'";
+					    sql+=");";
+					    System.out.println(sql);
+					    stmt.executeUpdate(sql);
 					}
 				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(this, ex.getMessage());
+					JOptionPane.showMessageDialog(this, ex);
 				}
 		/*      stmt = c.createStatement();
 		      String sql = "INSERT INTO general_employee (employee_num,employee_name) " +
