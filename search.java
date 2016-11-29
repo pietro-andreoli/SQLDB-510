@@ -365,17 +365,18 @@ public class search extends JFrame implements ActionListener
 
 			    stmt = c.createStatement();
 			    ResultSet rs = stmt.executeQuery( "SELECT t.ticket_num, t.status, t.assignment_group "
-			    		+ "							FROM ticket t "
-			    		+ "							WHERE EXISTS ("
-			    		+ "							SELECT t1.ticket_num, t2.ticket_num "
-			    		+ "							FROM ticket t1, ticket t2 "
-			    		+ "							WHERE t1.assignment_group = 'Hardware Repair' "
-			    		+ "							AND t2.assignment_group = 'Software Requests' "
-			    		+ "							AND t2.opened_for = 'Ajani Goldmande' "
-			    		+ "							AND t1.opened_for = 'Ajani Goldmane' "
-			    		+ "							AND t1.status = 'Open' "
-			    		+ "							AND t2.status = 'Open' "
-			    		+ "							AND t.ticket_num = t1.ticket_num);" );
+                        + "                            FROM ticket t "
+                        + "                            WHERE EXISTS ("
+                        + "                            SELECT t1.ticket_num, t2.ticket_num "
+                        + "                            FROM ticket t1, ticket t2 "
+                        + "                            WHERE t1.assignment_group = 'Hardware Repair' "
+                        + "                            AND t2.assignment_group = 'Software Requests' "
+                        + "                            AND t2.opened_for = 'Ajani Goldmane' "
+                        + "                            AND t1.opened_for = 'Ajani Goldmane' "
+                        + "                            AND t1.status = 'Open' "
+                        + "                            AND t2.status = 'Open' "
+                        + "                            AND (t.ticket_num = t1.ticket_num"
+                        + "                            OR t.ticket_num = t2.ticket_num));" );
 			      	
 			    System.out.println("The following tickets are currently open for Ajani Goldmane in the Hardware Repair or Software Requests groups:");
 			    
@@ -417,13 +418,13 @@ public class search extends JFrame implements ActionListener
 			    System.out.println("Opened database successfully");
 
 			    stmt = c.createStatement();
-			    ResultSet rs = stmt.executeQuery( "(SELECT * "
-			    		+ "							FROM ticket) "
-			    		+ "							MINUS "
-			    		+ "								(SELECT t.* "
-			    		+ "								FROM ticket t "
-			    		+ "								WHERE t.assignment_group = 'Software Requests' "
-			    		+ "								);" );
+			    ResultSet rs = stmt.executeQuery( "SELECT * "
+			    		+ "							FROM ticket "
+			    		+ "							EXCEPT "
+			    		+ "							SELECT * "
+			    		+ "							FROM ticket  "
+			    		+ "							WHERE assignment_group = 'Software Requests' "
+			    		+ "							;" );
 			      	
 			    System.out.println("The following are all the tickets except for the ones assigned to the Software Requests group");
 			    
@@ -464,14 +465,14 @@ public class search extends JFrame implements ActionListener
 			    System.out.println("Opened database successfully");
 
 			    stmt = c.createStatement();
-			    ResultSet rs = stmt.executeQuery( "(SELECT * "
+			    ResultSet rs = stmt.executeQuery( "SELECT * "
 			    		+ "							FROM ticket t "
-			    		+ "							WHERE t.opened_for = 'Saheeli Rai') "
-			    		+ "							MINUS "
-			    		+ "							(SELECT t1.* "
+			    		+ "							WHERE t.opened_for = 'Saheeli Rai' "
+			    		+ "							EXCEPT "
+			    		+ "							SELECT t1.* "
 			    		+ "							FROM ticket t1 "
 			    		+ "							WHERE assignment_group = 'Laptop Service' "
-			    		+ "							OR t1.opened_for != 'Saheeli Rai' );" );
+			    		+ "							OR t1.opened_for != 'Saheeli Rai' ;" );
 			      	
 			    System.out.println("The following tickets were opened for Service Agent Saheeli Rai in a group other than her own");
 			    
@@ -513,28 +514,31 @@ public class search extends JFrame implements ActionListener
 			    System.out.println("Opened database successfully");
 
 			    stmt = c.createStatement();
-			    ResultSet rs = stmt.executeQuery( "(SELECT employee_num p1, group_name p1, "
-			    		+ "							FROM part_of p1, service_agent s1 "
-			    		+ "							WHERE (sa1.employee_num = p1.employee_num) "
-			    		+ "							AND (p1.group_name = 'Software Reuqests')) "
-			    		+ "							UNION "
-			    		+ "							(SELECT employee_num, group_name "
-			    		+ "							FROM part_of, service_agent "
-			    		+ "							WHERE (service_agent.employee_num = part_of.employee_num) "
-			    		+ "							AND (part_of.group_name = 'Hardware Repair'));" );
+
+			    ResultSet rs = stmt.executeQuery( "	   SELECT employee_num, employee_name, assignment_group  "
+                        + "                            FROM  service_agent"
+                        + "                            WHERE  assignment_group = 'Software Requests' "
+
+                        
+                        + "                            UNION"
+                        
+                        + "                            SELECT employee_num, employee_name, assignment_group  "
+                        + "                            FROM  service_agent"
+                        + "                            WHERE  assignment_group = 'Hardware Repair' "
+                        						);
+                        
 			      	
 			    System.out.println("The following are all the service agents in the Software Requests and Hardware Repair groups");
 			    
 			    String output = "";
 			    
 			    while (rs.next()) 
-			    {  
+			    {  	
 			    	int employee_num = rs.getInt("employee_num");
 			    	String employee_name = rs.getString("employee_name");
 			    	String assignment_group = rs.getString("assignment_group");
 			    	
 			    	output += employee_num + " | " + employee_name + " | " + assignment_group + "\n";
-			    	
 			    }
 			    
 			    Table display_table = new Table(output);
