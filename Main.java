@@ -57,8 +57,8 @@ public class Main extends JFrame implements ActionListener
         if (str.equals("Update"))
         {
 
-            int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Update Table", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-            Update obj = new Update(chosen);
+           // int chosen = JOptionPane.showOptionDialog(this, "Which table do you want to edit?", "Update Table", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+            Update obj = new Update(0);
             obj.setVisible(true);
 
             
@@ -85,10 +85,13 @@ public class Main extends JFrame implements ActionListener
         		/*chosen = JOptionPane.showOptionDialog(this, "Which Query Are You Looking To Execute?", "Basic Query Stuff",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, basic, null);*/
         		JComboBox<String> combo = new JComboBox<String>(basic);
-        		chosen = JOptionPane.showConfirmDialog(this, combo , "Basic Query Stuff", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        		JOptionPane.showConfirmDialog(this, combo , "Basic Query Stuff", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        		System.out.println(combo.getSelectedIndex());
+        		chosen = combo.getSelectedIndex();
         	}else{
         		JComboBox<String> combo = new JComboBox<String>(advanced);
-        		chosen = JOptionPane.showConfirmDialog(this, combo , "Advanced Query Stuff", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) + basic.length;
+        		JOptionPane.showConfirmDialog(this, combo , "Advanced Query Stuff", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        		chosen = combo.getSelectedIndex() + basic.length;
         	}
             if(chosen > -1){
             	search obj = new search(chosen);
@@ -146,15 +149,13 @@ public class Main extends JFrame implements ActionListener
                   " (ticket_num INT                REFERENCES ticket(ticket_num)           NOT NULL," +
                   " assignment_group   VARCHAR(20) REFERENCES assignment_group(group_name) NOT NULL,"+
                   " primary key(ticket_num,assignment_group))";*/
-	     /* String sql = "DROP TABLE assignment_group";
-		     stmt.executeUpdate(sql);
-		      sql = "CREATE TABLE assignment_group " +
-	          "(name VARCHAR(30) PRIMARY KEY     NOT NULL," +
-	          " open_ticket           INT NOT NULL,"+
-	          " group_member           VARCHAR(30))";
-	     String sql = "DROP TABLE assignment_group";
-	     stmt.executeUpdate(sql);
-	      sql = "CREATE TABLE assignment_group " +
+	    // String sql = "DROP TABLE assignment_group";
+		//     stmt.executeUpdate(sql);
+		//      sql = "CREATE TABLE assignment_group " +
+	    //      "(name VARCHAR(30) PRIMARY KEY     NOT NULL)";
+	     //String sql = "DROP TABLE assignment_group";
+	    // stmt.executeUpdate(sql);
+	   /*   sql = "CREATE TABLE assignment_group " +
           "(name INT PRIMARY KEY     NOT NULL," +
           " date_opened           VARCHAR(30) NOT NULL,"+
           " date_closed           VARCHAR(30),"+
@@ -162,7 +163,50 @@ public class Main extends JFrame implements ActionListener
           "status                 VARCHAR(10) DEFAULT 'Open',"+
           "priority               INT      NOT NULL,"+
           "opened_for             VARCHAR(25) NOT NULL)";*/
-	    //  stmt.executeUpdate(sql);
+	      //String sql = "DROP TABLE service_agent";
+	      //stmt.executeUpdate(sql);
+	      /*String sql = "CREATE TABLE service_agent " +
+                  "(employee_num INT PRIMARY KEY     NOT NULL," +
+                  " assignment_group           CHAR(20),"+
+                  " employee_name              CHAR(30) NOT NULL)";
+	      stmt.executeUpdate(sql);*/
+	     /* String sql="DROP TABLE ticket";
+	      stmt.executeUpdate(sql);
+	      sql="CREATE TABLE ticket " +
+                  "(ticket_num INT PRIMARY KEY     NOT NULL," +
+                  "date_opened           VARCHAR(30) NOT NULL,"+
+                  "date_closed           VARCHAR(30),"+
+                  "assignment_group       VARCHAR(20) NOT NULL,"+
+                  "status                 VARCHAR(10) DEFAULT 'Open',"+
+                  "priority               INT      NOT NULL,"+
+                  "opened_for             VARCHAR(25) NOT NULL)";
+	      
+	      stmt.executeUpdate(sql);
+	      sql="";
+	      sql+="INSERT INTO ticket(ticket_num, date_opened, date_closed, assignment_group, status, priority, opened_for)"+
+	      "VALUES (1, '29-JUN-06', '25-JUN-06', 'Laptop Service', 'Closed', 1, 'Domri Rade');";
+
+	      sql+="INSERT INTO ticket(ticket_num, date_opened, assignment_group, status, priority, opened_for)"+
+	      "VALUES (450, '29-JUN-16', 'Network Issues', 'Open', 1, 'Ajani Goldmane');";
+
+	      sql+="INSERT INTO ticket(ticket_num, date_opened, date_closed, assignment_group, status, priority, opened_for)"+
+	      "VALUES (601, '4-OCT-16', NULL , 'Laptop Service', 'Open', 4, 'Dack Fayden');";
+
+	      sql+="INSERT INTO ticket(ticket_num, date_opened, date_closed, assignment_group, status, priority, opened_for)"+
+	      "VALUES (575, '20-SEP-16', NULL , 'Hardware Requests', 'Open', 3, 'Dack Fayden');";
+
+	      sql+="INSERT INTO ticket(ticket_num, date_opened, date_closed, assignment_group, status, priority, opened_for)"+
+	      "VALUES (287, '25-OCT-16', '', 'Hardware Repair', 'Open', 1, 'Ajani Goldmane');";
+
+	      sql+="INSERT INTO ticket(ticket_num, date_opened, date_closed, assignment_group, status, priority, opened_for)"+
+	      "VALUES (1954, '25-OCT-16', '', 'Software Requests', 'Open', 1, 'Ajani Goldmane');";
+
+	      sql+="INSERT INTO ticket(ticket_num, date_opened, date_closed, assignment_group, status, priority, opened_for)"+
+	      "VALUES (154, '25-OCT-16', '', 'Software Requests', 'Open', 1, 'Saheeli Rai');";
+
+	      sql+="INSERT INTO ticket(ticket_num, date_opened, date_closed, assignment_group, status, priority, opened_for)"+
+	      "VALUES (1009, '25-OCT-16', '', 'Laptop Service', 'Open', 1, 'Saheeli Rai');";
+	      stmt.executeUpdate(sql);*/
 	      stmt.close();
 	      c.close();
 	    } catch ( Exception e ) {

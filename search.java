@@ -26,7 +26,7 @@ public class search extends JFrame implements ActionListener {
 	JButton b1;
 
 	public search(int option) {
-		
+		this.option = option;
 		if(this.option == 0)
 		{
 			try 
@@ -39,7 +39,7 @@ public class search extends JFrame implements ActionListener {
 			    System.out.println("Opened database successfully");
 
 			    stmt = c.createStatement();
-			    ResultSet rs = stmt.executeQuery( "SELECT ticket_num FROM ticket WHERE status='Open';" );
+			    ResultSet rs = stmt.executeQuery( "SELECT ticket_num, date_closed, date_opened, assignment_group, status, priority, opened_for FROM ticket WHERE status='Open';" );
 			      
 			    String output = "";
 			    

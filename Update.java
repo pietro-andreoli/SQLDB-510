@@ -32,7 +32,7 @@ public class Update extends JFrame implements ActionListener {
 		panel = (JPanel) getContentPane();
 		panel.setLayout(g1);
 		//If General Employee
-		
+		JLabel l = new JLabel("Update a Certain Ticket Status");
 		this.setSize(500, 500);
 		ticket_num_l = new JLabel("Ticket No");
 		
@@ -41,16 +41,22 @@ public class Update extends JFrame implements ActionListener {
 		ticket_num_t = new JTextField(10);
 		
 		date_closed_t = new JTextField(10);
+		
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.gridx = 4;
+		gbc.gridy = 1;
+		g1.setConstraints(l, gbc);
+		panel.add(l);
 
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		gbc.gridx = 1;
-		gbc.gridy = 1;
+		gbc.gridy = 2;
 		g1.setConstraints(ticket_num_l, gbc);
 		panel.add(ticket_num_l);
 
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		gbc.gridx = 4;
-		gbc.gridy = 1;
+		gbc.gridy = 2;
 		g1.setConstraints(ticket_num_t, gbc);
 		panel.add(ticket_num_t);
 

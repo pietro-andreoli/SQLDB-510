@@ -215,11 +215,11 @@ public class Insert extends JFrame implements ActionListener {
 		}else if(option == 3){
 			this.setSize(300, 300);
 			group_name_l = new JLabel ("Group Name");
-			open_ticket_l = new JLabel ("Open Ticket");
-			group_member_l = new JLabel ("Group Member");
+			//open_ticket_l = new JLabel ("Open Ticket");
+			//group_member_l = new JLabel ("Group Member");
 			group_name_t = new JTextField(10);
-			open_ticket_t = new JTextField(10);
-			group_member_t = new JTextField(10);
+			//open_ticket_t = new JTextField(10);
+			//group_member_t = new JTextField(10);
 
 			gbc.anchor = GridBagConstraints.NORTHWEST;
 			gbc.gridx = 1;
@@ -233,29 +233,29 @@ public class Insert extends JFrame implements ActionListener {
 			g1.setConstraints(group_name_t, gbc);
 			panel.add(group_name_t);
 			
-			gbc.anchor = GridBagConstraints.NORTHWEST;
-			gbc.gridx = 1;
-			gbc.gridy = 2;
-			g1.setConstraints(open_ticket_l, gbc);
-			panel.add(open_ticket_l);
-
-			gbc.anchor = GridBagConstraints.NORTHWEST;
-			gbc.gridx = 4;
-			gbc.gridy = 2;
-			g1.setConstraints(open_ticket_t, gbc);
-			panel.add(open_ticket_t);
-			
-			gbc.anchor = GridBagConstraints.NORTHWEST;
-			gbc.gridx = 1;
-			gbc.gridy = 3;
-			g1.setConstraints(group_member_l, gbc);
-			panel.add(group_member_l);
-
-			gbc.anchor = GridBagConstraints.NORTHWEST;
-			gbc.gridx = 4;
-			gbc.gridy = 3;
-			g1.setConstraints(group_member_t, gbc);
-			panel.add(group_member_t);
+//			gbc.anchor = GridBagConstraints.NORTHWEST;
+//			gbc.gridx = 1;
+//			gbc.gridy = 2;
+//			g1.setConstraints(open_ticket_l, gbc);
+//			panel.add(open_ticket_l);
+//
+//			gbc.anchor = GridBagConstraints.NORTHWEST;
+//			gbc.gridx = 4;
+//			gbc.gridy = 2;
+//			g1.setConstraints(open_ticket_t, gbc);
+//			panel.add(open_ticket_t);
+//			
+//			gbc.anchor = GridBagConstraints.NORTHWEST;
+//			gbc.gridx = 1;
+//			gbc.gridy = 3;
+//			g1.setConstraints(group_member_l, gbc);
+//			panel.add(group_member_l);
+//
+//			gbc.anchor = GridBagConstraints.NORTHWEST;
+//			gbc.gridx = 4;
+//			gbc.gridy = 3;
+//			g1.setConstraints(group_member_t, gbc);
+//			panel.add(group_member_t);
 		}
 
 		this.setLocationRelativeTo(null);
@@ -343,11 +343,11 @@ public class Insert extends JFrame implements ActionListener {
 						stmt = c.createStatement();
 					    sql = "INSERT INTO assignment_group (name";
 					    if(group_name_t.getText().equals(""))throw new IllegalArgumentException("Assignment Group Cant be Empty");
-					    if(!open_ticket_t.getText().equals("")) sql+=", open_ticket";
-					    if(!group_member_t.getText().equals("")) sql+=", group_member";
+					    //if(!open_ticket_t.getText().equals("")) sql+=", open_ticket";
+					    //if(!group_member_t.getText().equals("")) sql+=", group_member";
 					    sql+=") VALUES ("+"'"+group_name_t.getText()+"'";
-					    if(!open_ticket_t.getText().equals("")) sql+=", "+open_ticket_t.getText();
-					    if(!group_member_t.getText().equals("")) sql+=", '"+group_member_t.getText()+"'";
+					    //if(!open_ticket_t.getText().equals("")) sql+=", "+open_ticket_t.getText();
+					    //if(!group_member_t.getText().equals("")) sql+=", '"+group_member_t.getText()+"'";
 					    sql+=");";
 					    System.out.println(sql);
 					    stmt.executeUpdate(sql);
