@@ -28,8 +28,7 @@ public class search extends JFrame implements ActionListener
 
 	JButton b1;
 
-	public search(int option) 
-	{
+	public search(int option){
 		this.option = option;
 		
 		//Simple Query 1
